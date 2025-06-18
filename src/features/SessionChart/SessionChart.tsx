@@ -18,7 +18,6 @@ const SessionChart = ({ from, to }: Props) => {
   const chartInstance = useRef<Chart | null>(null);
 
   useEffect(() => {
-    console.log({ from, to })
     setLoading(true);
     fetch(`${API_URL}/dashboard/sessions-per-day?p_from=${formattedDate(from)}&p_to=${formattedDate(to)}`)
       .then(res => res.json().then(setData))
@@ -26,7 +25,6 @@ const SessionChart = ({ from, to }: Props) => {
   }, []);
 
   useEffect(() => {
-    console.log(data)
     if (!chartRef.current) return;
 
     if (chartInstance.current) {

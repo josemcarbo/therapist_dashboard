@@ -20,7 +20,6 @@ export const ThemeProvider = ({ children }: Props) => {
     const applied = getAppliedTheme(userPref);
     updateTheme(applied);
     document.documentElement.setAttribute('data-theme', applied);
-    console.log(typeof updateTheme)
     updateTheme(userPref);
   }, [userPref]);
 
