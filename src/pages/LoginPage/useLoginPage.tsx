@@ -1,37 +1,35 @@
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik"
-import * as Yup from 'yup';
 import { useAuth } from "../../context/AuthContext";
+import { useState } from "react";
+import { PASSWORD, USER } from "../../constants";
 
 const useLoginPage = () => {
+  const [error, setError] = useState<string>("");
+
   const navigate = useNavigate();
   const { login } = useAuth();
-  const schema = Yup.object({
-    email: Yup.string()
-      .email('Invalid email address')
-      .required('Required'),
-    password: Yup.string()
-      .min(6, "Password too short")
-      .required('Required'),
-  });
 
   const formik = useFormik({
     initialValues: {
       email: '',
       password: ''
     },
-    validationSchema: schema,
+    // validationSchema: schema,
     onSubmit: (values) => {
-      alert(JSON.stringify(values));
-      login({ ...formik.values });
-      navigate('/');
+      if (values.email != USER || values.password != PASSWORD) {
+        setError("Invalid credentials")
+      } else {
+        login({ ...values });
+        navigate('/');
+      }
     }
   });
 
   const handleSignIn = () => { }
   const handleSignInWithGoogle = () => { }
 
-  return { formik, handleSignIn, handleSignInWithGoogle }
+  return { formik, handleSignIn, handleSignInWithGoogle, error }
 }
 
 export default useLoginPage;

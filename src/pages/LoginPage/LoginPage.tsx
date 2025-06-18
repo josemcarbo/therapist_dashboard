@@ -1,42 +1,45 @@
 import styles from './LoginPage.module.css';
-import TherapistChart from "../../features/TherapistChart/TherapistChart";
-import SessionChart from "../../features/SessionChart/SessionChart";
-import UserTable from "../../features/UserTable/UserTable";
-import SessionTable from "../../features/SessionTable/SessionTable";
-import { useUtilStore } from "../../store/utilStore";
-import Tabs from '../../components/ui/Tab/Tab';
+import Button from "../../components/ui/Button/Button";
+import InputText from "../../components/ui/InputText/InputText";
+import ElementContainer from "../../components/ui/ElementContainer/ElementContainer";
+import InputPassword from "../../components/ui/InputPassword/InputPassword";
+import useLoginPage from "./useLoginPage";
+import Logo from '../../components/shared/Logo/Logo';
 
 const LoginPage = () => {
-  // const { formik, handleSignInWithGoogle } = useLoginPage();
-  const { from, to } = useUtilStore((state) => state._util);
-  const tabs = [
-    {
-      key: 'users',
-      label: 'Users',
-      content: <UserTable from={new Date(from)} to={new Date(to)} />
-    },
-    {
-      key: 'sessions',
-      label: 'Sessions',
-      content: <SessionTable from={new Date(from)} to={new Date(to)} />
-    }
-  ]
+  const { formik, error } = useLoginPage();
+
   return (
-    <div className={styles.container}>
-      <div className={styles.row}>
-        <div className={styles.content}>
-          <Tabs tabs={tabs} />
-        </div>
-        <div className={styles.col}>
-          <div className={styles.content}>
-            <SessionChart from={new Date(from)} to={new Date(to)} />
-          </div>
-          <div className={styles.content}>
-            <TherapistChart from={new Date(from)} to={new Date(to)} />
-          </div>
-        </div>
-      </div>
-    </div>
+    <section className={styles.content}>
+      <ElementContainer size="medium">
+        <Logo />
+        <h1>Welcome back</h1>
+        <p>Sign in to your account</p>
+      </ElementContainer>
+      <form onSubmit={formik.handleSubmit}>
+        <InputText
+          label="Email"
+          name="email"
+          id="email"
+          placeholder="you@example.com"
+          value={formik.values.email}
+          error={(formik.touched.email && formik.errors.email) ? formik.errors.email : ''}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+        />
+        <InputPassword
+          label="Password"
+          name="password"
+          id="password"
+          value={formik.values.password}
+          error={(formik.touched.password && formik.errors.password) ? formik.errors.password : ''}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+        />
+        {error && (<span className={styles.error}>{error}</span>)}
+        <Button label="Sign In" />
+      </form>
+    </section>
   );
 };
 
