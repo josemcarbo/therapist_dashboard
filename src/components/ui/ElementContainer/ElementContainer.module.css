@@ -1,0 +1,26 @@
+.container {
+  display: flex;
+  justify-content: center;
+}
+
+.small {
+  gap: var(--space-1);
+}
+
+.medium {
+  gap: var(--space-3);
+}
+
+.large {
+  gap: var(--space-5);
+}
+
+.horizontal {
+  flex-direction: row;
+  align-items: center;
+}
+
+.vertical {
+  flex-direction: column;
+  align-items: flex-start;
+}

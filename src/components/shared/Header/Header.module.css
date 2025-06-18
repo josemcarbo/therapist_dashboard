@@ -1,0 +1,12 @@
+.content {
+  width: 100%;
+  height: 60px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-2) var(--space-lg);
+  box-shadow: var(--shadow-0_3_2);
+  background-color: var(--app-background);
+  z-index: 999;
+}

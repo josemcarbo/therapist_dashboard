@@ -1,0 +1,63 @@
+.sidebar {
+  width: auto;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: var(--app-background);
+  transition: width 0.5s ease;
+  overflow: hidden;
+  padding: var(--space-3) var(--space-2) var(--space-1);
+  box-shadow: var(--shadow-3_0_2);
+  z-index: 998;
+}
+
+.sidebar:hover {
+  width: 180px;
+}
+
+.menu {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.menu_item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: var(--space-1) var(--space-3);
+  cursor: pointer;
+  transition: background-color 0.2s;
+  border-radius: var(--space-xs);
+  margin: var(--space-1)
+}
+
+.menu_item:hover, .active {
+  background-color: var(--app-foreground);
+  color: var(--app-background);
+}
+
+.menu_item:last-child {
+  margin-top: auto;
+}
+
+.icon {
+  min-width: 22px;
+  min-height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.label {
+  opacity: 0;
+  display: none;
+  white-space: nowrap;
+  transition: opacity 0.2s ease 0.1s;
+}
+
+.sidebar:hover .label {
+  opacity: 1;
+  display: inline;
+}

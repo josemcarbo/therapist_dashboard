@@ -1,0 +1,11 @@
+.content {
+  width: var(--space-8);
+  height: var(--space-8);
+  border: 1px solid var(--app-foreground);
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  cursor: pointer;
+}

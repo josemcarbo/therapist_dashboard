@@ -1,0 +1,15 @@
+.container {
+  cursor: pointer;
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--space-xs);
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: var(--app-foreground);
+
+    svg {
+      stroke: var(--app-background);
+      transition: stroke 0.2s ease;
+    }
+  }
+}

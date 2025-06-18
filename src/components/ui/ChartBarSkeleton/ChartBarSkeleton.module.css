@@ -1,0 +1,77 @@
+.wrapper {
+  width: 100%;
+  height: 100%;
+  padding: 1rem;
+  border-radius: 8px;
+  min-height: 300px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.chart {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  max-width: 600px;
+  height: 100%;
+}
+
+.barContainer {
+  flex: 1;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.bar {
+  width: 24px;
+  border-radius: 4px;
+  background: linear-gradient(
+    90deg,
+    #e5e7eb 25%,
+    #f3f4f6 50%,
+    #e5e7eb 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.3s infinite;
+}
+
+.bar_1 {
+  height: 40%;
+}
+
+.bar_2 {
+  height: 20%;
+}
+
+.bar_3 {
+  height: 80%;
+}
+
+.bar_4 {
+  height: 62%;
+}
+
+.bar_5 {
+  height: 17%;
+}
+
+.bar_6 {
+  height: 48%;
+}
+
+.bar_7 {
+  height: 89%;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}

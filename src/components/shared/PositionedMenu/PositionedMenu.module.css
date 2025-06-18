@@ -1,0 +1,8 @@
+.container {
+  padding: var(--space-4) var(--space-6);
+  border-radius: var(--space-xs);
+  transition: all 0.3s;
+  box-shadow: var(--shadow-0_2);
+  background-color: var(--app-background);
+  z-index: 1000;
+}

@@ -1,0 +1,26 @@
+.layout {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  height: 100vh;
+}
+
+.content {
+  display: grid;
+  grid-template-columns: auto 1fr; /* sidebar, main */
+  overflow: hidden;
+}
+
+.header,
+.footer {
+  background: #f0f0f0;
+  padding: 1rem;
+}
+
+.main_content {
+  padding: var(--space-4) var(--space-8)
+}
+
+.sidebar {
+  width: 63px;
+  position: relative;
+}

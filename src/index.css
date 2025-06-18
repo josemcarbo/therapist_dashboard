@@ -1,0 +1,257 @@
+@font-face {
+  font-family: "Open Sans";
+  src: url("./assets/fonts/OpenSans-Light.ttf") format("truetype");
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: "Open Sans";
+  src: url("./assets/fonts/OpenSans-Regular.ttf") format("truetype");
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Open Sans";
+  src: url("./assets/fonts/OpenSans-Medium.ttf") format("truetype");
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: "Open Sans";
+  src: url("./assets/fonts/OpenSans-SemiBold.ttf") format("truetype");
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: "Open Sans";
+  src: url("./assets/fonts/OpenSans-Bold.ttf") format("truetype");
+  font-weight: 700;
+}
+
+:root {
+  --font-open-sans: "Open Sans", -apple-system, BlinkMacSystemFont, sans-serif;
+
+  --fw-light: 300;
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+
+  --fs-xs: 0.75rem; /* 12px */
+  --fs-sm: 0.875rem; /* 14px */
+  --fs-base: 1rem; /* 16px */
+  --fs-md: 1.125rem; /* 18px */
+  --fs-lg: 1.25rem; /* 20px */
+  --fs-xl: 1.5rem; /* 24px */
+  --fs-xxl: 1.725rem; /* 24px */
+
+  --color-primary: #6B8C82;
+  --color-secondary: #f1f5f9;
+  --color-error: #e5484d;
+  --color-black: #121212;
+  --color-white: #fafafa;
+  --app-background: #fafafa;
+  --app-border: #fafafa02;
+  --app-foreground: #121212;
+  --app-foreground-invert: #fafafa;
+
+  --input-bg: #fafafa07;
+  --input-border: #393939;
+  --input-fg: #121212;
+
+  --space-0: 0; /* 0px */
+  --space-1: 0.25rem; /* 4px */
+  --space-2: 0.5rem; /* 8px */
+  --space-3: 0.75rem; /* 12px */
+  --space-4: 1rem; /* 16px */
+  --space-5: 1.25rem; /* 20px */
+  --space-6: 1.5rem; /* 24px */
+  --space-7: 1.75rem; /* 28px */
+  --space-8: 2rem; /* 32px */
+  --space-9: 2.25rem; /* 36px */
+  --space-10: 2.5rem; /* 40px */
+  --space-12: 3rem; /* 48px */
+  --space-14: 3.5rem; /* 56px */
+  --space-16: 4rem; /* 64px */
+  --space-20: 5rem; /* 80px */
+  --space-24: 6rem; /* 96px */
+  --space-28: 7rem; /* 112px */
+  --space-32: 8rem; /* 128px */
+
+  /* Variables semánticas para casos comunes */
+  --space-xs: var(--space-2); /* 8px */
+  --space-sm: var(--space-4); /* 16px */
+  --space-md: var(--space-6); /* 24px */
+  --space-lg: var(--space-8); /* 32px */
+  --space-xl: var(--space-12); /* 48px */
+  --space-xxl: var(--space-16); /* 64px */
+
+  --shadow-2_6: 0 2px 6px rgba(0, 0, 0, 0.2);
+  --shadow-0_2: 0 0px 2px rgba(0, 0, 0, 0.2);
+  --shadow-1_2: 0 1px 2px rgba(0, 0, 0, 0.2);
+  --shadow-3_0_2: 3px 0 2px -3px rgba(0, 0, 0, 0.2);
+  --shadow-0_3_2: 0 3px 2px -3px rgba(0, 0, 0, 0.2);
+
+  isolation: isolate;
+}
+
+[data-theme="dark"] {
+  --color-primary: #6B8C82;
+  --color-secondary: #272727;
+  --color-accent: #67e8f9;
+  --color-neutral: #1e293b;
+  --color-disabled: #272727;
+  --color-black: #121212;
+  --color-white: #fafafa;
+
+  --input-bg: #fafafa07;
+  --input-border: #393939;
+  --input-fg: #fafafa;
+
+  --app-background: #121212;
+  --app-border: #12121206;
+  --app-foreground: #fafafa;
+  --app-foreground-invert: #121212;
+
+  --shadow-2_6: 0 2px 6px rgba(255, 255, 255, 0.2);
+  --shadow-0_2: 0 0 2px rgba(255, 255, 255, 0.2);
+  --shadow-1_2: 0 1px 2px rgba(255, 255, 255, 0.2);
+  --shadow-3_0_2: 3px 0 2px -3px rgba(255, 255, 255, 0.2);
+  --shadow-0_3_2: 0 3px 2px -3px rgba(255, 255, 255, 0.2);
+}
+
+/* === CSS RESET MODERNO === */
+/* Box sizing */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+::selection {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+}
+/* Remove default margin */
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+figure,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: var(--fw-semibold);
+}
+
+h1 {
+  font-size: var(--fs-xxl);
+}
+
+h2 {
+  font-size: var(--fs-xl);
+}
+
+h3,
+h4,
+h5,
+h6 {
+  font-size: var(--fs-lg);
+}
+
+h4 {
+  font-weight: var(--fw-bold);
+}
+
+h5 {
+  font-weight: var(--fw-semibold);
+}
+
+h6 {
+  font-weight: var(--fw-medium);
+}
+
+/* Remove default padding */
+ul[role="list"],
+ol[role="list"] {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+/* Set core body defaults */
+body {
+  font-family: var(--font-open-sans);
+  font-weight: var(--fw-regular);
+  font-size: var(--fs-sm);
+  line-height: var(--space-5);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--app-background);
+  color: var(--app-foreground);
+}
+
+/* Improve media defaults */
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* Remove built-in form typography styles */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+/* Avoid text overflows */
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+
+a {
+  color: var(--color-primary);
+  transition: color 0.3s ease;
+  font-weight: var(--fw-semibold);
+}
+
+.text-light {
+  font-weight: var(--fw-light);
+}
+
+.text-medium {
+  font-weight: var(--fw-medium);
+}
+
+.text-semibold {
+  font-weight: var(--fw-semibold);
+}
+
+.text-bold {
+  font-weight: var(--fw-bold);
+}
