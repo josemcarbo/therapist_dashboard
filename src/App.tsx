@@ -3,6 +3,8 @@ import type { ReactNode } from 'react';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import LoginPage from './pages/LoginPage/LoginPage';
 import { AuthLayout } from './layouts/AuthLayout/AuthLayout';
+import DashboardPage from './pages/DashboardPage/DashboardPage';
+import { MainLayout } from './layouts/MainLayout/MainLayout';
 
 export default function App() {
   return (
@@ -29,13 +31,24 @@ export function PrivateRoute({ children }: Props) {
 }
 
 function AppRoutes() {
+  const { user } = useAuth();
 
   return (
     <Routes>
       <Route element={<AuthLayout />}>
-        <Route path="/" element={<LoginPage />} />
+        <Route path="/login" element={<LoginPage />} />
       </Route>
-      <Route path="*" element={<Navigate to='/' />} />
+      <Route element={<MainLayout />}>
+        <Route
+          path="/"
+          element={
+            <PrivateRoute>
+              <DashboardPage />
+            </PrivateRoute>
+          }
+        />
+      </Route>
+      <Route path="*" element={<Navigate to={user ? "/" : "/login"} />} />
     </Routes>
   );
 }
