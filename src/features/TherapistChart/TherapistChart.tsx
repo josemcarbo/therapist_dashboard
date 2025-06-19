@@ -38,7 +38,7 @@ const TherapistChart = ({ from, to }: Props) => {
         labels: data.map((d: any) => d.therapist),
         datasets: [
           {
-            label: "My First Dataset",
+            label: "Duration in minutes",
             data: data.map((d: any) => d.total_duration_minutes),
             backgroundColor: [
               'rgb(255, 99, 132)',
