@@ -4,13 +4,10 @@ import styles from './SessionTable.module.css';
 import TableSkeleton from '../../components/ui/TableSkeleton/TableSkeleton';
 import { API_URL } from '../../constants';
 import moment from 'moment';
+import { useUtilStore } from '../../store/utilStore';
 
-type Props = {
-  from: Date
-  to: Date
-}
-
-export default function SessionTable({ from, to }: Props) {
+export default function SessionTable() {
+  const { from, to } = useUtilStore((state) => state._util);
   const [data, setData] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
   const cols = [
@@ -53,9 +50,9 @@ export default function SessionTable({ from, to }: Props) {
     fetch(`${API_URL}/dashboard/sessions?p_from=${formattedDate(from)}&p_to=${formattedDate(to)}&p_limit=10000`)
       .then(res => res.json().then((res: any) => setData(transform(res))))
       .finally(() => setLoading(false))
-  }, []);
+  }, [from, to]);
 
-  const formattedDate = (date: Date) => date.toISOString().split('T')[0];
+  const formattedDate = (date: string) => new Date(date).toISOString();
 
   return (
     <div className={styles.container}>

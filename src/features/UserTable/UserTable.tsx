@@ -4,13 +4,10 @@ import styles from './UserTable.module.css';
 import TableSkeleton from '../../components/ui/TableSkeleton/TableSkeleton';
 import { API_URL } from '../../constants';
 import moment from 'moment';
+import { useUtilStore } from '../../store/utilStore';
 
-type Props = {
-  from: Date
-  to: Date
-}
-
-export default function UserTable({ from, to }: Props) {
+export default function UserTable() {
+  const { from, to } = useUtilStore((state) => state._util);
   const [data, setData] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
 
@@ -34,7 +31,7 @@ export default function UserTable({ from, to }: Props) {
       .finally(() => setLoading(false))
   }, [from, to]);
 
-  const formattedDate = (date: Date) => date.toISOString().split('T')[0];
+  const formattedDate = (date: string) => new Date(date).toISOString();
 
   return (
     <div className={styles.container}>

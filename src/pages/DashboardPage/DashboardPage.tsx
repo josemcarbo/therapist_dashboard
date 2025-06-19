@@ -3,24 +3,22 @@ import TherapistChart from "../../features/TherapistChart/TherapistChart";
 import SessionChart from "../../features/SessionChart/SessionChart";
 import UserTable from "../../features/UserTable/UserTable";
 import SessionTable from "../../features/SessionTable/SessionTable";
-import { useUtilStore } from "../../store/utilStore";
 import Tabs from '../../components/ui/Tab/Tab';
 
 const DashboardPage = () => {
-  // const { formik, handleSignInWithGoogle } = useLoginPage();
-  const { from, to } = useUtilStore((state) => state._util);
   const tabs = [
     {
       key: 'users',
       label: 'Users',
-      content: <UserTable from={new Date(from)} to={new Date(to)} />
+      content: <UserTable />
     },
     {
       key: 'sessions',
       label: 'Sessions',
-      content: <SessionTable from={new Date(from)} to={new Date(to)} />
+      content: <SessionTable />
     }
   ]
+
   return (
     <div className={styles.container}>
       <div className={styles.row}>
@@ -29,10 +27,10 @@ const DashboardPage = () => {
         </div>
         <div className={styles.col}>
           <div className={styles.content}>
-            <SessionChart from={new Date(from)} to={new Date(to)} />
+            <SessionChart />
           </div>
           <div className={styles.content}>
-            <TherapistChart from={new Date(from)} to={new Date(to)} />
+            <TherapistChart />
           </div>
         </div>
       </div>

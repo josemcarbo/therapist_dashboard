@@ -4,13 +4,10 @@ import styles from './SessionChart.module.css';
 import ChartBarSkeleton from '../../components/ui/ChartBarSkeleton/ChartBarSkeleton';
 import moment from 'moment';
 import { API_URL } from '../../constants';
+import { useUtilStore } from '../../store/utilStore';
 
-type Props = {
-  from: Date
-  to: Date
-}
-
-const SessionChart = ({ from, to }: Props) => {
+const SessionChart = () => {
+  const { from, to } = useUtilStore((state) => state._util);
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -22,7 +19,7 @@ const SessionChart = ({ from, to }: Props) => {
     fetch(`${API_URL}/dashboard/sessions-per-day?p_from=${formattedDate(from)}&p_to=${formattedDate(to)}`)
       .then(res => res.json().then(setData))
       .finally(() => setLoading(false))
-  }, []);
+  }, [from, to]);
 
   useEffect(() => {
     if (!chartRef.current) return;
@@ -56,7 +53,7 @@ const SessionChart = ({ from, to }: Props) => {
             display: true,
             ticks: {
               font: {
-                size: 8
+                size: 10
               },
               maxRotation: 90,
               minRotation: 60
@@ -72,13 +69,17 @@ const SessionChart = ({ from, to }: Props) => {
     });
   }, [data]);
 
-  const formattedDate = (date: Date) => date.toISOString().split('T')[0];
+  const formattedDate = (date: string) => new Date(date).toISOString();
 
   return (
     <div className={styles.container}>
       <h3>Session per day</h3>
       <div className={styles.content}>
-        {loading ? (<ChartBarSkeleton />) : (<canvas ref={chartRef} />)}
+        {loading ? (<ChartBarSkeleton />) : (<>
+          {
+            data.length ? (<canvas ref={chartRef} />) : (<span>No data available</span>)
+          }
+        </>)}
       </div>
     </div>
   );

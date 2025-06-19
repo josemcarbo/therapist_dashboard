@@ -3,13 +3,10 @@ import Chart from "chart.js/auto";
 import styles from './TherapistChart.module.css';
 import DonutChartSkeleton from '../../components/ui/DonutChartSkeleton/DonutChartSkeleton';
 import { API_URL } from '../../constants';
+import { useUtilStore } from '../../store/utilStore';
 
-type Props = {
-  from: Date
-  to: Date
-}
-
-const TherapistChart = ({ from, to }: Props) => {
+const TherapistChart = () => {
+  const { from, to } = useUtilStore((state) => state._util);
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -21,7 +18,7 @@ const TherapistChart = ({ from, to }: Props) => {
     fetch(`${API_URL}/dashboard/duration-by-therapist?p_from=${formattedDate(from)}&p_to=${formattedDate(to)}`)
       .then(res => res.json().then(setData))
       .finally(() => setLoading(false))
-  }, []);
+  }, [from, to]);
 
   useEffect(() => {
     if (!chartRef.current) return;
@@ -80,13 +77,17 @@ const TherapistChart = ({ from, to }: Props) => {
     });
   }, [data]);
 
-  const formattedDate = (date: Date) => date.toISOString().split('T')[0];
+  const formattedDate = (date: string) => new Date(date).toISOString();
 
   return (
     <div className={styles.container}>
       <h3>Session duration by Therapist</h3>
       <div className={styles.content}>
-        {loading ? (<DonutChartSkeleton />) : (<canvas ref={chartRef} />)}
+        {loading ? (<DonutChartSkeleton />) : (<>
+          {
+            data.length ? (<canvas ref={chartRef} />) : (<span>No data available</span>)
+          }
+        </>)}
       </div>
     </div>
   );
