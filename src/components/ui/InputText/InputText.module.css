@@ -37,4 +37,10 @@
     font-weight: var(--fw-medium);
     color: var(--color-error);
   }
+
+  .search_icon {
+    position: absolute;
+    top: 1.9rem;
+    right: 0.5rem;
+  }
 }

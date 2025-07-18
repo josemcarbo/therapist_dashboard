@@ -3,23 +3,21 @@ import Chart from "chart.js/auto";
 import styles from './SessionChart.module.css';
 import ChartBarSkeleton from '../../components/ui/ChartBarSkeleton/ChartBarSkeleton';
 import moment from 'moment';
-import { API_URL } from '../../constants';
-import { useUtilStore } from '../../store/utilStore';
+import { pieChartColors } from '../../constants';
 
-const SessionChart = () => {
-  const { from, to } = useUtilStore((state) => state._util);
-  const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(false);
+type Props = {
+  data: any[];
+  loading: boolean;
+}
 
+const SessionChart = ({ data, loading }: Props) => {
+  const [chartData, setChartData] = useState<any[]>([]);
   const chartRef = useRef<HTMLCanvasElement | null>(null);
   const chartInstance = useRef<Chart | null>(null);
 
   useEffect(() => {
-    setLoading(true);
-    fetch(`${API_URL}/dashboard/sessions-per-day?p_from=${formattedDate(from)}&p_to=${formattedDate(to)}`)
-      .then(res => res.json().then(setData))
-      .finally(() => setLoading(false))
-  }, [from, to]);
+    setChartData(transform(data));
+  }, [data]);
 
   useEffect(() => {
     if (!chartRef.current) return;
@@ -31,11 +29,11 @@ const SessionChart = () => {
     const ctx = (chartRef.current as any).getContext("2d");
 
     const setup = {
-      labels: data.map((s: any) => moment(s.session_date).format('MM/DD')),
+      labels: chartData.map((s: any) => s.session_date),
       datasets: [{
         label: 'Sessions per day',
-        data: data.map((s: any) => s.session_count),
-        backgroundColor: '#6B8C82',
+        data: chartData.map((s: any) => s.session_count),
+        backgroundColor: pieChartColors[0],
         borderRadius: 6
       }]
     };
@@ -67,9 +65,16 @@ const SessionChart = () => {
         },
       },
     });
-  }, [data]);
+  }, [chartData]);
 
-  const formattedDate = (date: string) => new Date(date).toISOString();
+  const transform = (data: any[]): any => {
+    const grouped: Record<any, any> = {};
+    data.map(d => grouped[moment(d.created_at).format('YYYY-MM-DD')] = (grouped[moment(d.created_at).format('YYYY-MM-DD')] || 0) + 1);
+    return Object.entries(grouped).map(e => ({
+      session_count: e[1],
+      session_date: e[0]
+    }))
+  }
 
   return (
     <div className={styles.container}>
@@ -77,7 +82,7 @@ const SessionChart = () => {
       <div className={styles.content}>
         {loading ? (<ChartBarSkeleton />) : (<>
           {
-            data.length ? (<canvas ref={chartRef} />) : (<span>No data available</span>)
+            chartData?.length ? (<canvas ref={chartRef} />) : (<span>No data available</span>)
           }
         </>)}
       </div>

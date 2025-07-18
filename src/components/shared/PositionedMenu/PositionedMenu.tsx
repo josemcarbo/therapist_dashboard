@@ -12,13 +12,8 @@ const PositionedMenu = ({ visible, triggerRef, children }: Props) => {
   const [position, setPosition] = useState({ top: 0, left: 0 });
 
   useEffect(() => {
-    console.log(triggerRef.current)
     if (triggerRef.current) {
       const rect = triggerRef.current.getBoundingClientRect();
-      console.log({
-        rect,
-        window
-      })
       setPosition({
         top: rect.bottom + window.scrollY,
         left: rect.left + window.scrollX,

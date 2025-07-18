@@ -3,8 +3,9 @@ import type { ReactNode } from 'react';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import LoginPage from './pages/LoginPage/LoginPage';
 import { AuthLayout } from './layouts/AuthLayout/AuthLayout';
-import DashboardPage from './pages/DashboardPage/DashboardPage';
 import { MainLayout } from './layouts/MainLayout/MainLayout';
+import UserPage from './pages/UserPage/UserPage';
+import SessionPage from './pages/SessionPage/SessionPage';
 
 export default function App() {
   return (
@@ -43,7 +44,23 @@ function AppRoutes() {
           path="/"
           element={
             <PrivateRoute>
-              <DashboardPage />
+              <Navigate to="/users" replace />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/users"
+          element={
+            <PrivateRoute>
+              <UserPage />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/sessions"
+          element={
+            <PrivateRoute>
+              <SessionPage />
             </PrivateRoute>
           }
         />

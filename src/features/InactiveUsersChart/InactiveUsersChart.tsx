@@ -1,21 +1,23 @@
 import { useEffect, useRef, useState } from 'react';
 import Chart from "chart.js/auto";
-import styles from './TherapistChart.module.css';
-import DonutChartSkeleton from '../../components/ui/DonutChartSkeleton/DonutChartSkeleton';
+import styles from './InactiveUsersChart.module.css';
 import { pieChartColors } from '../../constants';
+import PieChartSkeleton from '../../components/ui/PieChartSkeleton/PieChartSkeleton';
+import type { User, UserGroupBySessions } from '../../types/user.type';
 
 type Props = {
-  data: any[];
-  loading: boolean;
+  loading: boolean
+  data: any[]
 }
 
-const TherapistChart = ({ data, loading }: Props) => {
-  const [chartData, setChartData] = useState<any[]>([]);
+const InactiveUsersChart = ({ loading, data }: Props) => {
+  const [chartData, setChartData] = useState<UserGroupBySessions>();
+
   const chartRef = useRef<HTMLCanvasElement | null>(null);
   const chartInstance = useRef<Chart | null>(null);
 
   useEffect(() => {
-    setChartData(transform(data));
+    setChartData(transformData(data))
   }, [data]);
 
   useEffect(() => {
@@ -28,14 +30,14 @@ const TherapistChart = ({ data, loading }: Props) => {
     const ctx = (chartRef.current as any).getContext("2d");
 
     chartInstance.current = new Chart(ctx, {
-      type: "doughnut",
+      type: "pie",
       data: {
-        labels: chartData.map((d: any) => d.therapist),
+        labels: ['Active', 'Inactive'],
         datasets: [
           {
-            label: "Duration in minutes",
-            data: chartData.map((d: any) => d.total_duration_minutes),
-            backgroundColor: pieChartColors,
+            label: "Users: ",
+            data: [chartData?.active || 0, chartData?.inactive || 0],
+            backgroundColor: [...pieChartColors].reverse(),
             borderRadius: 6,
           },
         ],
@@ -67,23 +69,27 @@ const TherapistChart = ({ data, loading }: Props) => {
     });
   }, [chartData]);
 
-  const transform = (data: any[]): any => {
-    const grouped: Record<any, any> = {};
-    data.map(d => grouped[d.therapist_name] = (grouped[d.therapist_name] || 0) + d.duration);
-
-    return Object.entries(grouped).map(e => ({
-      therapist: e[0],
-      total_duration_minutes: e[1]
-    }))
+  const transformData = (users: User[]): UserGroupBySessions => {
+    return users.reduce(
+      (acc, user) => {
+        if (user.session_count > 0) {
+          acc.active += 1;
+        } else {
+          acc.inactive += 1;
+        }
+        return acc;
+      },
+      { active: 0, inactive: 0 }
+    );
   }
 
   return (
     <div className={styles.container}>
-      <h3>Session Duration per Ally</h3>
+      <h3>Active vs Inactive</h3>
       <div className={styles.content}>
-        {loading ? (<DonutChartSkeleton />) : (<>
+        {loading ? (<PieChartSkeleton />) : (<>
           {
-            chartData?.length ? (<canvas ref={chartRef} />) : (<span>No data available</span>)
+            chartData ? (<canvas ref={chartRef} />) : (<span>No data available</span>)
           }
         </>)}
       </div>
@@ -91,4 +97,4 @@ const TherapistChart = ({ data, loading }: Props) => {
   );
 };
 
-export default TherapistChart;
+export default InactiveUsersChart;

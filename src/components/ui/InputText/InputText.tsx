@@ -4,7 +4,7 @@ import styles from './InputText.module.css';
 type Props = {
   id?: string
   name: string
-  type?: 'text' | 'password' | 'email' | 'number' | 'date'
+  type?: 'text' | 'password' | 'email' | 'number' | 'date' | 'search'
   label?: string
   disabled?: boolean
   value?: string
@@ -32,7 +32,7 @@ const InputText = ({
       <input
         id={id || name}
         name={name}
-        className={classNames(styles.input, {[styles.error]: error})}
+        className={classNames(styles.input, { [styles.error]: error })}
         placeholder={placeholder}
         disabled={disabled}
         type={type}

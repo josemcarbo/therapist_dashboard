@@ -1,6 +1,7 @@
 .layout {
   display: grid;
-  grid-template-rows: auto auto;
+  grid-template-columns: 65px 1fr;
+  height: 100vh;
 }
 
 .container {

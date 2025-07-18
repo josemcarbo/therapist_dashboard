@@ -1,15 +1,14 @@
-import { useEffect, useState } from 'react';
 import Table from '../../components/ui/Table/Table';
 import styles from './SessionTable.module.css';
 import TableSkeleton from '../../components/ui/TableSkeleton/TableSkeleton';
-import { API_URL } from '../../constants';
 import moment from 'moment';
-import { useUtilStore } from '../../store/utilStore';
 
-export default function SessionTable() {
-  const { from, to } = useUtilStore((state) => state._util);
-  const [data, setData] = useState<any[]>([]);
-  const [loading, setLoading] = useState(false);
+type Props = {
+  data: any[];
+  loading: boolean;
+};
+
+export default function SessionTable({ data, loading }: Props) {
   const cols = [
     { key: 'email', header: 'User', sortable: true },
     { key: 'therapist_name', header: 'Therapist', sortable: true },
@@ -27,7 +26,7 @@ export default function SessionTable() {
     const mins = duration.minutes();
 
     let parts = [];
-    
+
     if (years) parts.push(`${years}y`);
     if (months) parts.push(`${months}mo`);
     if (days) parts.push(`${days}d`);
@@ -45,18 +44,9 @@ export default function SessionTable() {
         duration: transformDuration(session.duration)
       }));
 
-  useEffect(() => {
-    setLoading(true);
-    fetch(`${API_URL}/dashboard/sessions?p_from=${formattedDate(from)}&p_to=${formattedDate(to)}&p_limit=10000`)
-      .then(res => res.json().then((res: any) => setData(transform(res))))
-      .finally(() => setLoading(false))
-  }, [from, to]);
-
-  const formattedDate = (date: string) => new Date(date).toISOString();
-
   return (
     <div className={styles.container}>
-      {loading ? <TableSkeleton columns={cols.length} rows={10} /> : <Table columns={cols} data={data} />}
+      {loading ? <TableSkeleton columns={cols.length} rows={10} /> : <Table columns={cols} data={transform(data)} />}
     </div>
   );
 }

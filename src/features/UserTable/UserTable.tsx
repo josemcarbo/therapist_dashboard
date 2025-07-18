@@ -1,41 +1,22 @@
-import { useEffect, useState } from 'react';
 import Table from '../../components/ui/Table/Table';
 import styles from './UserTable.module.css';
 import TableSkeleton from '../../components/ui/TableSkeleton/TableSkeleton';
-import { API_URL } from '../../constants';
-import moment from 'moment';
-import { useUtilStore } from '../../store/utilStore';
 
-export default function UserTable() {
-  const { from, to } = useUtilStore((state) => state._util);
-  const [data, setData] = useState<any[]>([]);
-  const [loading, setLoading] = useState(false);
+type Props = {
+  loading: boolean
+  data: any[]
+}
 
+export default function UserTable({ loading, data }: Props) {
   const cols = [
     { key: 'email', header: 'Email', sortable: true },
     { key: 'last_sign_in_at', header: 'Last Sign in', sortable: true },
     { key: 'session_count', header: 'Sessions', sortable: true }
   ];
 
-  const transform = (users: any[]) =>
-    users
-      .map((user: any) => ({
-        ...user,
-        last_sign_in_at: moment(user.last_sign_in_at).format('MMM D, h:mm A')
-      }));
-
-  useEffect(() => {
-    setLoading(true);
-    fetch(`${API_URL}/dashboard/user-sessions?p_from=${formattedDate(from)}&p_to=${formattedDate(to)}&p_limit=1000`)
-      .then(res => res.json().then((res: any) => setData(transform(res))))
-      .finally(() => setLoading(false))
-  }, [from, to]);
-
-  const formattedDate = (date: string) => new Date(date).toISOString();
-
   return (
     <div className={styles.container}>
-      {loading ? <TableSkeleton columns={cols.length} rows={10} /> : <Table columns={cols} data={data} />}
+      {loading ? <TableSkeleton columns={cols.length} rows={5} /> : <Table columns={cols} data={data} />}
     </div>
   );
 }

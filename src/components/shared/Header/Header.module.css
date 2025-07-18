@@ -8,5 +8,5 @@
   padding: var(--space-2) var(--space-lg);
   box-shadow: var(--shadow-0_3_2);
   background-color: var(--app-background);
-  z-index: 999;
+  z-index: 998;
 }

@@ -6,6 +6,9 @@
   justify-content: center;
   align-items: center;
   gap: var(--space-md);
+  padding: var(--space-lg) var(--space-sm);
+  border-radius: var(--space-xs);
+  box-shadow: var(--shadow-0_2);
 
   h3 {
     text-align: center;
@@ -15,7 +18,6 @@
 .content {
   width: 100%;
   height: 100%;
-  max-width: 300px;
   display: flex;
   justify-content: center;
   align-items: center;

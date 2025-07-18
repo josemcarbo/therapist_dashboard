@@ -1,21 +1,22 @@
 import { useEffect, useRef, useState } from 'react';
 import Chart from "chart.js/auto";
-import styles from './TherapistChart.module.css';
-import DonutChartSkeleton from '../../components/ui/DonutChartSkeleton/DonutChartSkeleton';
+import styles from './UserBySessionChart.module.css';
 import { pieChartColors } from '../../constants';
+import PieChartSkeleton from '../../components/ui/PieChartSkeleton/PieChartSkeleton';
 
 type Props = {
-  data: any[];
-  loading: boolean;
+  loading: boolean
+  data: any[]
 }
 
-const TherapistChart = ({ data, loading }: Props) => {
+const UserBySessionChart = ({ loading, data }: Props) => {
   const [chartData, setChartData] = useState<any[]>([]);
+
   const chartRef = useRef<HTMLCanvasElement | null>(null);
   const chartInstance = useRef<Chart | null>(null);
 
   useEffect(() => {
-    setChartData(transform(data));
+    setChartData(data.filter(d => d.session_count).slice(0, 10))
   }, [data]);
 
   useEffect(() => {
@@ -28,13 +29,13 @@ const TherapistChart = ({ data, loading }: Props) => {
     const ctx = (chartRef.current as any).getContext("2d");
 
     chartInstance.current = new Chart(ctx, {
-      type: "doughnut",
+      type: "pie",
       data: {
-        labels: chartData.map((d: any) => d.therapist),
+        labels: chartData.map((d: any) => d.email.split('@')[0]),
         datasets: [
           {
-            label: "Duration in minutes",
-            data: chartData.map((d: any) => d.total_duration_minutes),
+            label: "Sessions: ",
+            data: data.map((d: any) => d.session_count),
             backgroundColor: pieChartColors,
             borderRadius: 6,
           },
@@ -67,23 +68,13 @@ const TherapistChart = ({ data, loading }: Props) => {
     });
   }, [chartData]);
 
-  const transform = (data: any[]): any => {
-    const grouped: Record<any, any> = {};
-    data.map(d => grouped[d.therapist_name] = (grouped[d.therapist_name] || 0) + d.duration);
-
-    return Object.entries(grouped).map(e => ({
-      therapist: e[0],
-      total_duration_minutes: e[1]
-    }))
-  }
-
   return (
     <div className={styles.container}>
-      <h3>Session Duration per Ally</h3>
+      <h3>Top 10: Sessions per user</h3>
       <div className={styles.content}>
-        {loading ? (<DonutChartSkeleton />) : (<>
+        {loading ? (<PieChartSkeleton />) : (<>
           {
-            chartData?.length ? (<canvas ref={chartRef} />) : (<span>No data available</span>)
+            chartData.length ? (<canvas ref={chartRef} />) : (<span>No data available</span>)
           }
         </>)}
       </div>
@@ -91,4 +82,4 @@ const TherapistChart = ({ data, loading }: Props) => {
   );
 };
 
-export default TherapistChart;
+export default UserBySessionChart;

@@ -4,5 +4,5 @@
   transition: all 0.3s;
   box-shadow: var(--shadow-0_2);
   background-color: var(--app-background);
-  z-index: 1000;
+  z-index: 998;
 }
