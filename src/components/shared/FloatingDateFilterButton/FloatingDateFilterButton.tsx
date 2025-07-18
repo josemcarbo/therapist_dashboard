@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Calendar } from 'lucide-react';
+import { SlidersHorizontal } from 'lucide-react';
 import { useUtilStore } from '../../../store/utilStore';
 import InputText from '../../ui/InputText/InputText';
 import styles from './FloatingDateFilterButton.module.css';
@@ -31,13 +31,13 @@ export default function FloatingDateFilterButton() {
         className={styles.floating_button}
         onClick={() => setIsOpen(true)}
       >
-        <i className={styles.icon}><Calendar size={22} strokeWidth={1} /></i>
+        <i className={styles.icon}><SlidersHorizontal size={22} strokeWidth={1} /></i>
       </button>
 
       {isOpen && (
         <Modal onClose={() => setIsOpen(false)}>
           <div className={styles.content}>
-            <h3>Select Date Range</h3>
+            <h3>Filter Options</h3>
             <InputText
               name="search"
               id="search"
@@ -64,7 +64,7 @@ export default function FloatingDateFilterButton() {
                 onChange={(e: any) => setEndDate(e.target.value)}
               />
             </div>
-            <Button loading={loading} label='Apply' onClick={handleSetRange} />
+            <Button loading={loading} label='Apply filters' onClick={handleSetRange} />
           </div>
         </Modal>
       )}
