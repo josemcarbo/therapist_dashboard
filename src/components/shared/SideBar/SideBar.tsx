@@ -1,4 +1,4 @@
-import { CalendarClock, Users } from 'lucide-react';
+import { CalendarClock, UserRoundMinus, Users } from 'lucide-react';
 import styles from './Sidebar.module.css';
 import classNames from 'classnames';
 import Logo from '../Logo/Logo';
@@ -22,6 +22,12 @@ const SideBar = () => {
           <Link to={'/sessions'} className={classNames(styles.menu_item_link, { [styles.active]: location.pathname === '/sessions' })}>
             <i className={styles.icon}><CalendarClock size={22} strokeWidth={1} /></i>
             <span className={styles.label}>Sessions</span>
+          </Link>
+        </li>
+        <li className={styles.menu_item}>
+          <Link to={'/candidate'} className={classNames(styles.menu_item_link, { [styles.active]: location.pathname === '/candidate' })}>
+            <i className={styles.icon}><UserRoundMinus size={22} strokeWidth={1} /></i>
+            <span className={styles.label}>Candidate</span>
           </Link>
         </li>
         <li></li>

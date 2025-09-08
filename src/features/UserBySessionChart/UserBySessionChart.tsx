@@ -16,6 +16,7 @@ const UserBySessionChart = ({ loading, data }: Props) => {
   const chartInstance = useRef<Chart | null>(null);
 
   useEffect(() => {
+    console.log(data.filter(d => d.session_count).slice(0, 10))
     setChartData(data.filter(d => d.session_count).slice(0, 10))
   }, [data]);
 
@@ -35,7 +36,7 @@ const UserBySessionChart = ({ loading, data }: Props) => {
         datasets: [
           {
             label: "Sessions: ",
-            data: data.map((d: any) => d.session_count),
+            data: chartData.map((d: any) => d.session_count),
             backgroundColor: pieChartColors,
             borderRadius: 6,
           },
