@@ -6,6 +6,7 @@ import { AuthLayout } from './layouts/AuthLayout/AuthLayout';
 import { MainLayout } from './layouts/MainLayout/MainLayout';
 import UserPage from './pages/UserPage/UserPage';
 import SessionPage from './pages/SessionPage/SessionPage';
+import UserInactivePage from './pages/UserInactivePage/UserInactivePage';
 
 export default function App() {
   return (
@@ -61,6 +62,14 @@ function AppRoutes() {
           element={
             <PrivateRoute>
               <SessionPage />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/candidate"
+          element={
+            <PrivateRoute>
+              <UserInactivePage />
             </PrivateRoute>
           }
         />
