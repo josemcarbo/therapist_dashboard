@@ -79,7 +79,7 @@ const TherapistChart = ({ data, loading }: Props) => {
 
   return (
     <div className={styles.container}>
-      <h3>Session Duration per Ally</h3>
+      <h3>Duration per Ally</h3>
       <div className={styles.content}>
         {loading ? (<DonutChartSkeleton />) : (<>
           {

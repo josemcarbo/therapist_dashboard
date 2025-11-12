@@ -78,7 +78,7 @@ const SessionChart = ({ data, loading }: Props) => {
 
   return (
     <div className={styles.container}>
-      <h3>Session per day</h3>
+      <h3>Conversation per day</h3>
       <div className={styles.content}>
         {loading ? (<ChartBarSkeleton />) : (<>
           {

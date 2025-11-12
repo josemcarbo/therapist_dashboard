@@ -16,7 +16,6 @@ const UserBySessionChart = ({ loading, data }: Props) => {
   const chartInstance = useRef<Chart | null>(null);
 
   useEffect(() => {
-    console.log(data.filter(d => d.session_count).slice(0, 10))
     setChartData(data.filter(d => d.session_count).slice(0, 10))
   }, [data]);
 
@@ -32,10 +31,10 @@ const UserBySessionChart = ({ loading, data }: Props) => {
     chartInstance.current = new Chart(ctx, {
       type: "pie",
       data: {
-        labels: chartData.map((d: any) => d.email.split('@')[0]),
+        labels: chartData.map((d: any) => d.name || d.email.split('@')[0]),
         datasets: [
           {
-            label: "Sessions: ",
+            label: "Conversations: ",
             data: chartData.map((d: any) => d.session_count),
             backgroundColor: pieChartColors,
             borderRadius: 6,
@@ -71,7 +70,7 @@ const UserBySessionChart = ({ loading, data }: Props) => {
 
   return (
     <div className={styles.container}>
-      <h3>Top 10: Sessions per user</h3>
+      <h3>Top 10: Conversations per user</h3>
       <div className={styles.content}>
         {loading ? (<PieChartSkeleton />) : (<>
           {
