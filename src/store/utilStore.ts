@@ -21,7 +21,7 @@ interface UtilState {
 export const useUtilStore = create<UtilState>((set) => ({
   _util: {
     from: moment().subtract(30, "days").format(FORMAT),
-    to: moment().format(FORMAT),
+    to: moment().add(1, 'day').format(FORMAT),
     search: "",
     setFrom: (from: string) =>
       set((state) => ({

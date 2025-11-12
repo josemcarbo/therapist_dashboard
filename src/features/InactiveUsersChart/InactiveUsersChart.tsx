@@ -21,6 +21,7 @@ const InactiveUsersChart = ({ loading, data }: Props) => {
   }, [data]);
 
   useEffect(() => {
+    console.log({chartData});
     if (!chartRef.current) return;
 
     if (chartInstance.current) {
@@ -89,7 +90,7 @@ const InactiveUsersChart = ({ loading, data }: Props) => {
       <div className={styles.content}>
         {loading ? (<PieChartSkeleton />) : (<>
           {
-            chartData ? (<canvas ref={chartRef} />) : (<span>No data available</span>)
+            data.length ? (<canvas ref={chartRef} />) : (<span>No data available</span>)
           }
         </>)}
       </div>

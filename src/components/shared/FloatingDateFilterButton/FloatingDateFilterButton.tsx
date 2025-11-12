@@ -52,7 +52,7 @@ export default function FloatingDateFilterButton() {
                 id="from"
                 type="date"
                 value={startDate}
-                label='Start date'
+                label='Created at from'
                 onChange={(e: any) => setStartDate(e.target.value)}
               />
               <InputText
@@ -60,7 +60,7 @@ export default function FloatingDateFilterButton() {
                 id="to"
                 type="date"
                 value={endDate}
-                label='End date'
+                label='Created at to'
                 onChange={(e: any) => setEndDate(e.target.value)}
               />
             </div>

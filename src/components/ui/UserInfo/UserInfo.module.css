@@ -1,0 +1,16 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  /* gap: var(--space-xs); */
+
+  span {
+    font-size: var(--fs-sm);
+    font-weight: var(--fw-medium);
+    color: var(--color-black);
+  }
+
+  i {
+    font-size: var(--fs-xs);
+    color: var(--color-text-secondary);
+  }
+}

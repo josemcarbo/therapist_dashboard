@@ -14,18 +14,16 @@ const SessionPage = () => {
 
   useEffect(() => {
     setLoading(true);
-    fetch(`${API_URL}/dashboard/sessions?p_from=${formattedDate(from)}&p_to=${formattedDate(to)}&p_search=${search}&p_limit=10000`)
+    fetch(`${API_URL}/dashboard/sessions?p_from=${from}&p_to=${to}&p_search=${search}`)
       .then(res => res.json().then((res: any) => setData(res)))
       .finally(() => setLoading(false));
   }, [from, to, search]);
-
-  const formattedDate = (date: string) => new Date(date).toISOString();
 
   return (
     <div className={styles.container}>
       <div className={styles.container}>
         <div className={styles.user_table_content}>
-          <h3 style={{ textAlign: 'center', marginBottom: '1rem' }}>List of sessions ({data.length || 0})</h3>
+          <h3 style={{ textAlign: 'center', marginBottom: '1rem' }}>List of conversations ({data.length || 0})</h3>
           <SessionTable data={data} loading={loading} />
         </div>
         <div className={styles.chats_content}>

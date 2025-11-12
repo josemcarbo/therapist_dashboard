@@ -1,31 +1,34 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./Table.module.css";
-
-type Column = {
-  key: string;
-  header: string;
-  sortable?: boolean;
-};
+import type { TableCol } from "../../../types/table.type";
+import { ChevronDown, ChevronUp } from "lucide-react";
 
 type Props = {
-  columns: Column[];
+  columns: TableCol[];
   data: any[];
 };
 
 export default function Table({ columns, data }: Props) {
   const [sortKey, setSortKey] = useState<string | null>(null);
-  const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
+  const [sortOrder, setSortOrder] = useState<"asc" | "desc">("desc");
+  const [sortedData, setSortedData] = useState<any[]>(data);
+
 
   const handleSort = (key: string) => {
     if (sortKey === key) {
       setSortOrder((prev) => (prev === "asc" ? "desc" : "asc"));
     } else {
       setSortKey(key);
-      setSortOrder("asc");
+      setSortOrder("desc");
     }
   };
 
-  const sortedData = [...data].sort((a, b) => {
+  useEffect(() => {
+    console.log({ data, sortKey, sortOrder });
+    setSortedData(toSortedData());
+  }, [data, sortKey, sortOrder]);
+
+  const toSortedData = () => [...data].sort((a, b) => {
     if (!sortKey) return 0;
 
     const valA = a[sortKey];
@@ -56,10 +59,18 @@ export default function Table({ columns, data }: Props) {
                   userSelect: "none",
                 }}
               >
-                {col.header}
-                {col.sortable && sortKey === col.key && (
-                  <span>{sortOrder === "asc" ? " ▲" : " ▼"}</span>
-                )}
+                <div className={styles.headerCell}>
+                  {col.header}
+                  {col.sortable && sortKey === col.key && (
+                    <>
+                      {
+                        sortOrder === "asc" ? (
+                          <ChevronUp size={16} />
+                        ) : (<ChevronDown size={16} />)
+                      }
+                    </>
+                  )}
+                </div>
               </th>
             ))}
           </tr>
@@ -69,7 +80,7 @@ export default function Table({ columns, data }: Props) {
             sortedData.map((row, i) => (
               <tr key={i}>
                 {columns.map((col) => (
-                  <td key={col.key}>{row[col.key]}</td>
+                  <td key={col.key}>{col.transform ? col.transform(row) : row[col.key]}</td>
                 ))}
               </tr>
             ))
