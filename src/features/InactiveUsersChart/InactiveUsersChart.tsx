@@ -21,7 +21,6 @@ const InactiveUsersChart = ({ loading, data }: Props) => {
   }, [data]);
 
   useEffect(() => {
-    console.log({chartData});
     if (!chartRef.current) return;
 
     if (chartInstance.current) {
@@ -86,7 +85,7 @@ const InactiveUsersChart = ({ loading, data }: Props) => {
 
   return (
     <div className={styles.container}>
-      <h3>Active vs Inactive</h3>
+      <h3>Users by Conversation Activity</h3>
       <div className={styles.content}>
         {loading ? (<PieChartSkeleton />) : (<>
           {

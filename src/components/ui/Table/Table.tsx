@@ -24,7 +24,6 @@ export default function Table({ columns, data }: Props) {
   };
 
   useEffect(() => {
-    console.log({ data, sortKey, sortOrder });
     setSortedData(toSortedData());
   }, [data, sortKey, sortOrder]);
 

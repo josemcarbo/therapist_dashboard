@@ -57,7 +57,7 @@
   --app-foreground-invert: #fafafa;
 
   --input-bg: #fafafa07;
-  --input-border: #393939;
+  --input-border: #595959;
   --input-fg: #121212;
 
   --space-0: 0; /* 0px */
@@ -205,6 +205,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-color: var(--app-background);
   color: var(--app-foreground);
+  overflow: hidden;
 
   ::-webkit-scrollbar {
     width: 8px;

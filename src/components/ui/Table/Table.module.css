@@ -1,6 +1,6 @@
 .container {
   width: 100%;
-  overflow-x: auto;
+  /* overflow-x: auto; */
   /* border-radius: 0.75rem;
   border: 1px solid #e5e7eb; */
 }
@@ -47,4 +47,24 @@
   align-items: center;
   gap: var(--space-xs);
   cursor: pointer;
+}
+
+.filter_container {
+  position: sticky;
+  top: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: 0 var(--space-sm);
+  transition: all 0.3s ease;
+  background-color: var(--app-background);
+  z-index: 2;
+}
+
+.filter_options {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: var(--space-sm);
 }

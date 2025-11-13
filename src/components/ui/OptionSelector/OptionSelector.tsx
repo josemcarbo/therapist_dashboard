@@ -12,10 +12,10 @@ type Props = {
   options: TOption[];
   value?: string;
   label?: string;
-  onChange?: (key: string, value: string) => void;
+  onChange?: (option: TOption) => void;
 };
 
-const OptionSelector: React.FC<Props> = ({ name, label, options, value, onChange }) => {
+const OptionSelector: React.FC<Props> = ({ label, options, value, onChange }) => {
   const [active, setActive] = useState<string>(value || options[0].id);
 
   useEffect(() => {
@@ -24,7 +24,7 @@ const OptionSelector: React.FC<Props> = ({ name, label, options, value, onChange
 
   const handleClick = (id: string) => {
     setActive(id);
-    onChange?.(name, id);
+    onChange?.(options.find(opt => opt.id === id)!);
   };
 
   return (

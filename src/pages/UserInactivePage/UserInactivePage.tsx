@@ -31,9 +31,8 @@ const UserInactivePage = () => {
       .finally(() => setLoading(false))
   }, [days]);
 
-  const handlerOnChangeDays = (key: string, value: string) => {
-    console.log(key)
-    setDays(value)
+  const handlerOnChangeDays = (value: any) => {
+    setDays(value.id)
   }
 
   return (
