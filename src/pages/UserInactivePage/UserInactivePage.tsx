@@ -28,12 +28,12 @@ const UserInactivePage = () => {
     setLoading(true);
     fetch(`${API_URL}/dashboard/user-inactive?p_days=${days}`)
       .then(res => res.json().then((res: any) => setData(transform(res))))
+      .catch(() => setData([]))
       .finally(() => setLoading(false))
   }, [days]);
 
-  const handlerOnChangeDays = (key: string, value: string) => {
-    console.log(key)
-    setDays(value)
+  const handlerOnChangeDays = (value: any) => {
+    setDays(value.id)
   }
 
   return (

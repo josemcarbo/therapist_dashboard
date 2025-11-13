@@ -1,7 +1,7 @@
 import { Outlet } from 'react-router-dom';
 import styles from './MainLayout.module.css';
 import SideBar from '../../components/shared/SideBar/SideBar';
-import FloatingDateFilterButton from '../../components/shared/FloatingDateFilterButton/FloatingDateFilterButton';
+// import FloatingDateFilterButton from '../../components/shared/FloatingDateFilterButton/FloatingDateFilterButton';
 
 export const MainLayout = () => {
   return (
@@ -10,7 +10,7 @@ export const MainLayout = () => {
       <div className={styles.container}>
         <Outlet />
       </div>
-      <FloatingDateFilterButton/>
+      {/* <FloatingDateFilterButton/> */}
     </main>
   );
 };

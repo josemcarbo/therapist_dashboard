@@ -1,0 +1,37 @@
+.button {
+  position: relative;
+  /* width: 100%; */
+  background-color: var(--app-background);
+  color: var(--app-foreground);
+  border: unset;
+  border: 1px solid var(--color-border);
+  margin: var(--space-2) 0;
+  padding: var(--space-1) var(--space-1);
+  border-radius: var(--space-xs);
+  cursor: pointer;
+  box-shadow: var(--shadow-0_2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--space-sm);
+  transition: all 0.3s;
+  animation: pulse 1.5s infinite ease-in-out;
+}
+
+.button:disabled {
+  opacity: 0.8;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
