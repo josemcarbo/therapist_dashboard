@@ -96,6 +96,7 @@ const UserPage = () => {
     setLoading(true);
     fetch(`${API_URL}/dashboard/user-sessions`)
       .then(res => res.json().then((res: any) => setData(res)))
+      .catch(() => setData([]))
       .finally(() => setLoading(false))
   }
 

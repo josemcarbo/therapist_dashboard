@@ -69,6 +69,7 @@ const SessionPage = () => {
     setLoading(true);
     fetch(`${API_URL}/dashboard/sessions`)
       .then(res => res.json().then((res: any) => setData(res)))
+      .catch(() => setData([]))
       .finally(() => setLoading(false));
   }
 
