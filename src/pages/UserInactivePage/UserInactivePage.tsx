@@ -1,7 +1,6 @@
 import styles from './UserInactivePage.module.css';
 import { useEffect, useState } from 'react';
 import { API_URL } from '../../constants';
-import moment from 'moment';
 import UserInactiveTable from '../../features/UserInactiveTable/UserInactiveTable';
 import OptionSelector from '../../components/ui/OptionSelector/OptionSelector';
 
@@ -16,18 +15,10 @@ const UserInactivePage = () => {
   const [days, setDays] = useState<string>(DAYS_OPTIONS[1].id);
   const [loading, setLoading] = useState(false);
 
-  const transform = (users: any[]) =>
-    users
-      .map((user: any) => ({
-        ...user,
-        created_at: user.created_at ? moment(user.created_at).format('MMM D, h:mm A') : '-',
-        last_sign_in_at: user.last_sign_in_at ? moment(user.last_sign_in_at).format('MMM D, h:mm A') : 'Never signed in'
-      }));
-
   useEffect(() => {
     setLoading(true);
     fetch(`${API_URL}/dashboard/user-inactive?p_days=${days}`)
-      .then(res => res.json().then((res: any) => setData(transform(res))))
+      .then(res => res.json().then((res: any) => setData(res)))
       .catch(() => setData([]))
       .finally(() => setLoading(false))
   }, [days]);
