@@ -34,7 +34,7 @@ const TherapistChart = ({ data, loading }: Props) => {
         datasets: [
           {
             label: "Duration in minutes",
-            data: chartData.map((d: any) => d.total_duration_minutes),
+            data: chartData.map((d: any) => Math.round( d.total_duration_minutes / 60 )),
             backgroundColor: pieChartColors,
             borderRadius: 6,
           },
